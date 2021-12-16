@@ -74,7 +74,7 @@ export default function AddEditData() {
               />
               <InputField
                 onChange={handleChangeInput}
-                type="text"
+                type="number"
                 name="mobile"
                 id="mobile"
                 value={values?.mobile}
