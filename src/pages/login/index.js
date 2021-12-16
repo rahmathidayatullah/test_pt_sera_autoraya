@@ -11,9 +11,8 @@ export default function Index() {
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
-    clearErrors,
   } = useForm();
 
   const [form, setForm] = useState({
@@ -26,7 +25,10 @@ export default function Index() {
     setForm({ ...form, [name]: value });
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    navigate("/home");
+    reset();
+  };
 
   useEffect(() => {
     if (auth.statusLogin === "error") {

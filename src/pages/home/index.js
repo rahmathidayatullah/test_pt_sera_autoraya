@@ -10,6 +10,7 @@ import {
 } from "firebase/database";
 export default function Index() {
   const [data, setData] = useState([]);
+  const [resultArray, setResultArray] = useState([]);
   console.log("data", data);
   const db = getDatabase();
   const dbRef = ref(db, "/users");
@@ -24,6 +25,18 @@ export default function Index() {
       setSuccessDelete(true);
     }
     // setSuccessDelete(false);
+  };
+
+  const filterData = () => {
+    let _temp = [...data];
+
+    let dataNew = _temp.filter((items) => items.denom >= 10000);
+
+    let resultArray = dataNew.map((a) => a.denom);
+
+    // console.log("dataNew", dataNew);
+    setData(dataNew);
+    setResultArray(resultArray);
   };
 
   useEffect(() => {
@@ -48,10 +61,37 @@ export default function Index() {
 
   return (
     <div className="p-10">
-      <Link className="text-indigo-600 hover:text-indigo-900" to={`/addedit`}>
-        Add Data
-      </Link>
-      <div className="flex flex-col">
+      <div className="flex items-start justify-between">
+        <Link className="text-indigo-600 hover:text-indigo-900" to={`/addedit`}>
+          Add Data
+        </Link>
+        <div>
+          <button
+            onClick={filterData}
+            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-6"
+          >
+            filter denom &gt;= 100000,
+          </button>
+          <div
+            className={`p-10 bg-blue-100 mt-4 rounded-lg ${
+              resultArray.length ? "" : "hidden"
+            }`}
+          >
+            (
+            {resultArray &&
+              resultArray.map((items, index) => {
+                return (
+                  <div>
+                    &nbsp;&nbsp;&nbsp;[{index}] &gt;{items}
+                    <br />
+                  </div>
+                );
+              })}
+            )
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col mt-10">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -75,6 +115,12 @@ export default function Index() {
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                       Address
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Denom
                     </th>
                     <th scope="col" className="relative px-6 py-3">
                       <span className="sr-only">Edit</span>
@@ -115,6 +161,9 @@ export default function Index() {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               {items.address}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {items?.denom}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                               <Link

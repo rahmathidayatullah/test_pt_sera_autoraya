@@ -153,6 +153,24 @@ export default function AddEditData() {
                   className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
+              <div className="col-span-6">
+                <label
+                  htmlFor="street-address"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Denom
+                </label>
+                <input
+                  onChange={handleChangeInput}
+                  type="number"
+                  name="denom"
+                  id="denom"
+                  value={values?.denom}
+                  autoComplete="denom"
+                  placeholder="denom"
+                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                />
+              </div>
             </div>
           </div>
           <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
