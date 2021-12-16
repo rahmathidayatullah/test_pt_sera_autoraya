@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import Button from "./components/atoms/button";
-import Input from "./components/atoms/input";
 import Example from "./components/example";
 import Login from "./pages/login";
 import Register from "./pages/register";

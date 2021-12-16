@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { postLogin } from "../../features/authentication/actions";
+import ErrorField from "../../components/atoms/error";
+import Label from "../../components/atoms/label";
+import Button from "../../components/atoms/button";
 export default function Index() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,15 +43,15 @@ export default function Index() {
   }, [auth.statusLogin]);
   return (
     <div className="mt-5 md:mt-0 md:col-span-2">
-      <h1>Login</h1>
+      <h1 className="p-6 text-2xl font-semibold">
+        Email dan password bebas karena api login dan register tidak bisa
+      </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="shadow overflow-hidden sm:rounded-md">
           <div className="px-4 py-5 bg-white sm:p-6">
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6">
-                <label className="block text-sm  font-medium text-gray-700">
-                  Email
-                </label>
+                <Label>Email</Label>
                 <input
                   {...register("email", {
                     required: "email not correct",
@@ -63,20 +66,15 @@ export default function Index() {
                   name="email"
                   placeholder="Email"
                   autoComplete="email"
-                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  className="input-field"
                 />
                 {errors.email && (
-                  <p className="mt-2 text-red-600">{errors.email.message}</p>
+                  <ErrorField>{errors.email.message}</ErrorField>
                 )}
               </div>
 
               <div className="col-span-6">
-                <label
-                  htmlFor="street-address"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password
-                </label>
+                <Label>Password</Label>
                 <input
                   {...register("password", {
                     required: "password not correct",
@@ -87,21 +85,19 @@ export default function Index() {
                   name="password"
                   placeholder="Password"
                   autoComplete="password"
-                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                  className="input-field"
                 />
+
                 {errors.password && (
-                  <p className="mt-2 text-red-600">{errors.password.message}</p>
+                  <ErrorField>{errors.password.message}</ErrorField>
                 )}
               </div>
             </div>
           </div>
           <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <button
-              type="submit"
-              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
+            <Button type="submit" className="btn">
               Login
-            </button>
+            </Button>
           </div>
         </div>
       </form>

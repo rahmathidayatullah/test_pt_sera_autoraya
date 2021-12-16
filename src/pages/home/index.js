@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  getDatabase,
-  ref,
-  onValue,
-  remove,
-  get,
-  child,
-} from "firebase/database";
+import { getDatabase, ref, onValue, remove, child } from "firebase/database";
+import Button from "../../components/atoms/button";
 export default function Index() {
   const [data, setData] = useState([]);
   const [resultArray, setResultArray] = useState([]);
-  console.log("data", data);
   const db = getDatabase();
   const dbRef = ref(db, "/users");
 
   const [successDelete, setSuccessDelete] = useState(false);
-  console.log("successDelete", successDelete);
 
   const handleDelete = (id) => {
     const dbRefr = ref(getDatabase());
@@ -24,7 +16,6 @@ export default function Index() {
       remove(child(dbRefr, `users/${id}`));
       setSuccessDelete(true);
     }
-    // setSuccessDelete(false);
   };
 
   const filterData = () => {
@@ -33,8 +24,6 @@ export default function Index() {
     let dataNew = _temp.filter((items) => items.denom >= 10000);
 
     let resultArray = dataNew.map((a) => a.denom);
-
-    // console.log("dataNew", dataNew);
     setData(dataNew);
     setResultArray(resultArray);
   };
@@ -47,7 +36,6 @@ export default function Index() {
         snapshot.forEach((childSnapshot) => {
           const childKey = childSnapshot.key;
           const childData = childSnapshot.val();
-          console.log("childKey", childKey);
           _temp.push({ ...childData, id: childKey });
         });
         setData(_temp);
@@ -66,12 +54,9 @@ export default function Index() {
           Add Data
         </Link>
         <div>
-          <button
-            onClick={filterData}
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-6"
-          >
+          <Button onClick={filterData} type="button" className="btn">
             filter denom &gt;= 100000,
-          </button>
+          </Button>
           <div
             className={`p-10 bg-blue-100 mt-4 rounded-lg ${
               resultArray.length ? "" : "hidden"
@@ -98,28 +83,16 @@ export default function Index() {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className="th-table">
                       Nama
                     </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className="th-table">
                       Mobile
                     </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className="th-table">
                       Address
                     </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
+                    <th scope="col" className="th-table">
                       Denom
                     </th>
                     <th scope="col" className="relative px-6 py-3">
@@ -156,16 +129,16 @@ export default function Index() {
                               </div>
                             </td>
 
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="td-table text-gray-500">
                               {items.mobile}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="td-table text-gray-500">
                               {items.address}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td className="td-table text-gray-500">
                               {items?.denom}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <td className="td-table text-right font-medium">
                               <Link
                                 className="text-indigo-600 hover:text-indigo-900"
                                 to={`/addedit/${items.id}`}
@@ -173,7 +146,7 @@ export default function Index() {
                                 Edit
                               </Link>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <td className="td-table text-right font-medium">
                               <button
                                 onClick={() => handleDelete(items.id)}
                                 className="text-indigo-600 hover:text-indigo-900"

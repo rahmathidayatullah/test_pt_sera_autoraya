@@ -19,8 +19,6 @@ export const postLogin = (formData) => {
     });
     try {
       let res = await axios.post("https://reqres.in/api/login", formData);
-
-      console.log("data login berhasil", res);
     } catch (error) {
       console.log("error.response", error.response);
       dispatch({
@@ -37,8 +35,6 @@ export const userRegister = (formData) => {
     });
     try {
       let res = await axios.post("https://reqres.in/api/register", formData);
-
-      console.log("data login berhasil", res);
     } catch (error) {
       console.log("error.response", error.response);
       dispatch({

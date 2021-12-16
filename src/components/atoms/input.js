@@ -1,13 +1,25 @@
 import React from "react";
 
-export default function input() {
+export default function Input({
+  onChange,
+  type,
+  name,
+  id,
+  value,
+  autoComplete,
+  placeholder,
+  className,
+}) {
   return (
     <input
-      type="text"
-      name="price"
-      id="price"
-      className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
-      placeholder="0.00"
+      onChange={onChange}
+      type={type}
+      name={name}
+      id={id}
+      value={value}
+      autoComplete={autoComplete}
+      placeholder={placeholder}
+      className={className}
     />
   );
 }

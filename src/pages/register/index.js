@@ -7,7 +7,6 @@ export default function Index() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  console.log("auth", auth);
   const {
     register,
     handleSubmit,
