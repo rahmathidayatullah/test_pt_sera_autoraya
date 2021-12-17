@@ -55,7 +55,7 @@ export default function Index() {
         </Link>
         <div>
           <Button onClick={filterData} type="button" className="btn">
-            filter denom &gt;= 100000,
+            filter denom &gt;= 10000,
           </Button>
           <div
             className={`p-10 bg-blue-100 mt-4 rounded-lg ${
